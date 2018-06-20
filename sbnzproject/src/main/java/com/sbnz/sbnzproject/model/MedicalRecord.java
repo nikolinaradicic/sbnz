@@ -2,6 +2,8 @@ package com.sbnz.sbnzproject.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -22,7 +24,7 @@ public class MedicalRecord {
 	private Disease disease;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Collection<Symptom> symptoms = new ArrayList<>();
+	private Set<Symptom> symptoms = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<Medicine> medicine = new ArrayList<>();
@@ -46,7 +48,7 @@ public class MedicalRecord {
 	public Collection<Symptom> getSymptoms() {
 		return symptoms;
 	}
-	public void setSymptoms(Collection<Symptom> symptoms) {
+	public void setSymptoms(Set<Symptom> symptoms) {
 		this.symptoms = symptoms;
 	}
 	public Collection<Medicine> getMedicine() {

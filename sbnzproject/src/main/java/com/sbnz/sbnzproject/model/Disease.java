@@ -1,6 +1,8 @@
 package com.sbnz.sbnzproject.model;
 
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,7 +24,7 @@ public class Disease {
 	private String name;
 	
 	@ManyToMany
-	private Collection<Symptom> symptoms;
+	private Set<Symptom> symptoms = new HashSet<>();
 	
 	@Enumerated(EnumType.STRING)
 	private DiseaseType diseaseType;
@@ -51,7 +53,7 @@ public class Disease {
 		return symptoms;
 	}
 
-	public void setSymptoms(Collection<Symptom> symptoms) {
+	public void setSymptoms(Set<Symptom> symptoms) {
 		this.symptoms = symptoms;
 	}
 

@@ -1,7 +1,8 @@
 package com.sbnz.sbnzproject.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -25,13 +26,13 @@ public class Patient {
 	private String lastName;
 	
 	@OneToMany(fetch = FetchType.EAGER)
-	private Collection<MedicalRecord> patientHistory = new ArrayList<>();
+	private Set<MedicalRecord> patientHistory = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Collection<Medicine> medicineAlergies = new ArrayList<>();
+	private Set<Medicine> medicineAlergies = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Collection<MedicineComponent> componentAlergies = new ArrayList<>();
+	private Set<MedicineComponent> componentAlergies = new HashSet<>();
 
 	public Patient() {
 		
@@ -65,7 +66,7 @@ public class Patient {
 		return patientHistory;
 	}
 
-	public void setPatientHistory(Collection<MedicalRecord> patientHistory) {
+	public void setPatientHistory(Set<MedicalRecord> patientHistory) {
 		this.patientHistory = patientHistory;
 	}
 
@@ -73,7 +74,7 @@ public class Patient {
 		return medicineAlergies;
 	}
 
-	public void setMedicineAlergies(Collection<Medicine> medicineAlergies) {
+	public void setMedicineAlergies(Set<Medicine> medicineAlergies) {
 		this.medicineAlergies = medicineAlergies;
 	}
 
@@ -81,7 +82,7 @@ public class Patient {
 		return componentAlergies;
 	}
 
-	public void setComponentAlergies(Collection<MedicineComponent> componentAlergies) {
+	public void setComponentAlergies(Set<MedicineComponent> componentAlergies) {
 		this.componentAlergies = componentAlergies;
 	}
 	

@@ -1,8 +1,8 @@
 package com.sbnz.sbnzproject.model;
 
-import java.util.ArrayList;
 import java.util.Collection;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -20,7 +20,7 @@ public class Medicine {
 	private Long id;
 	
 	@ManyToMany(fetch= FetchType.EAGER)
-	private Collection<MedicineComponent> components = new ArrayList<>();
+	private Set<MedicineComponent> components = new HashSet<>();
 	
 	@Enumerated(EnumType.STRING)
 	private MedicineType medicineType;
@@ -41,7 +41,7 @@ public class Medicine {
 		return components;
 	}
 
-	public void setComponents(Collection<MedicineComponent> components) {
+	public void setComponents(Set<MedicineComponent> components) {
 		this.components = components;
 	}
 

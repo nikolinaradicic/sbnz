@@ -1,8 +1,31 @@
 import { Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import 'rxjs/add/operator/map';
+import { HttpParams } from '@angular/common/http/src/params';
+import { Patient } from '../model/patient';
 
 @Injectable()
 export class UserService {
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
+
+  authenticate(username: string, password: string) {
+    let authenticationRequest = { username: username, password: password };
+    let params = JSON.stringify(authenticationRequest);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post("http://localhost:8080/auth", params,
+      {
+        headers: headers
+      }).map(res => res);
+  }
+
+  addPatient(obj: Patient){
+    let params = JSON.stringify(obj);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post("http://localhost:8080/api/patient", params,
+      {
+        headers: headers
+      }).map(res => res);
+  }
 
 }

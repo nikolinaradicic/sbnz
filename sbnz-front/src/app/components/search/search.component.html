@@ -1,0 +1,8 @@
+<input [(ngModel)]="searchText" placeholder="search text goes here" name="search">
+<div *ngIf="searchText">
+    <ul>
+        <li *ngFor="let m of searchList | filter : searchText">
+          {{m.name}} <button (click)="add(m)"> Add</button>
+        </li>
+      </ul>
+</div>

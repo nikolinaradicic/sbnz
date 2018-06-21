@@ -1,0 +1,37 @@
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+      <form>
+          <label for="fname">First Name</label>
+          <input type="text" [(ngMode)]="patient.name" id="fname" name="firstname" placeholder="Patient name..">
+        
+          <label for="lname">Last Name</label>
+          <input type="text" id="lname" [(ngModel)]="patient.lastName" name="lastname" placeholder="Patient last name..">
+        
+          <label for="lname">Email</label>
+          <input type="text" id="lname" [(ngModel)]="patient.email" name="email" placeholder="Patient email">
+        
+        
+          <label for="country">Alergies</label>
+          <ul>
+            <li *ngFor="let a of patient.medicineAlergies">
+              {{a.name}}
+              <button (click)="deleteMedicine(i)"> delete</button>
+            </li>
+            <li *ngFor="let a of patient.componentAlergies; let i = index">
+              {{a.name}}
+              <button (click)= "deleteComponent(i)">Delete</button>
+            </li>
+          </ul>
+
+          <label for="search">Search medicine and components</label>
+
+          <app-search (addMedicine)="addMedicine($event)" (addComponent)="addComponent($event)"></app-search>
+        <div class="row">
+
+          <input type="button" value="Add patient" (click)="addPatient()"/>
+        </div>
+      </form>
+  </div>
+  <div class="col-md-3"></div>
+</div>

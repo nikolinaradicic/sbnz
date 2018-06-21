@@ -9,6 +9,14 @@ export class FilterPipe implements PipeTransform {
     if(!items) return [];
     if(!searchText) return items;
   searchText = searchText.toLowerCase();
+  if (items[0].email){
+    //filter pacijenata
+    return items.filter( it => {
+      return it.name.toLowerCase().includes(searchText)
+       || it.lastName.toLowerCase().includes(searchText)
+       || it.email.toLowerCase().includes(searchText);
+    });
+  }
   return items.filter( it => {
       return it.name.toLowerCase().includes(searchText);
     });

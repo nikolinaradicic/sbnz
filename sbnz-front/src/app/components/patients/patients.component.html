@@ -1,0 +1,34 @@
+<br>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="form-group">
+      <label for="search">Search patients</label>
+        <input [(ngModel)]="searchText" name="search" id="search" autofocus>
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+</div>
+<br/>
+<div class="container">
+    <h2>Patients</h2>
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Email</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let patient of patients | filter : searchText">
+          <td>{{patient.name}}</td>
+          <td>{{patient.lastName}}</td>
+          <td>{{patient.email}}</td>
+          <td><button (click)="goToDiagnose(patient)">Diagnose</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  

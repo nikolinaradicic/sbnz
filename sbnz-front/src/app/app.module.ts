@@ -15,6 +15,8 @@ import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AddPatientComponent } from './components/add-patient/add-patient.component';
 import { SearchComponent } from './components/search/search.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { DiagnoseComponent } from './components/diagnose/diagnose.component';
+import { PatientsComponent } from './components/patients/patients.component';
 
 
 @NgModule({
@@ -24,7 +26,9 @@ import { FilterPipe } from './pipes/filter.pipe';
     PageNotFoundComponent,
     AddPatientComponent,
     SearchComponent,
-    FilterPipe
+    FilterPipe,
+    DiagnoseComponent,
+    PatientsComponent
   ],
   imports: [
     BrowserModule,
@@ -33,12 +37,19 @@ import { FilterPipe } from './pipes/filter.pipe';
     HttpClientModule,
     RouterModule.forRoot(
       [
-        { path: 'login', component: LoginComponent },
-
-        { path: 'newPatient', component: AddPatientComponent },
+        {
+          path: 'login', component: LoginComponent 
+        },
+        { 
+          path: 'newPatient', component: AddPatientComponent 
+        },
+        { 
+          path: 'patients', component: PatientsComponent
+        },
         {
           path:'not-found', component: PageNotFoundComponent
         },
+        { path: 'diagnose/:id', component: DiagnoseComponent },
         {
           path:'**', redirectTo:'not-found'
         }

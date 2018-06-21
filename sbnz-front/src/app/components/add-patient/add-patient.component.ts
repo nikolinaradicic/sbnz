@@ -17,7 +17,8 @@ export class AddPatientComponent implements OnInit {
     email: "",
     medicineAlergies: [],
     componentAlergies: []
-  }
+  };
+
   constructor(
     private userService: UserService,
     private router: Router
@@ -27,7 +28,6 @@ export class AddPatientComponent implements OnInit {
   }
 
   addMedicine(event: Medicine){
-    console.log(event);
     this.patient.medicineAlergies.push(event);
   }
 

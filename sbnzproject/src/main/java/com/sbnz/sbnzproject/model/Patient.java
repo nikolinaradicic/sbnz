@@ -25,6 +25,9 @@ public class Patient {
 	@Column(nullable = false)
 	private String lastName;
 	
+	@Column(nullable = false)
+	private String email;
+	
 	@OneToMany(fetch = FetchType.EAGER)
 	private Set<MedicalRecord> patientHistory = new HashSet<>();
 	
@@ -60,6 +63,15 @@ public class Patient {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
+	}
+	
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public Collection<MedicalRecord> getPatientHistory() {

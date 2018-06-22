@@ -1,8 +1,9 @@
 package com.sbnz.sbnzproject.model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -25,9 +26,22 @@ public class Medicine {
 	@Enumerated(EnumType.STRING)
 	private MedicineType medicineType;
 	
+	@Column(nullable = false)
+	private String name;
+	
 	public Medicine() {
 		
 	}
+
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -37,7 +51,7 @@ public class Medicine {
 		this.id = id;
 	}
 
-	public Collection<MedicineComponent> getComponents() {
+	public Set<MedicineComponent> getComponents() {
 		return components;
 	}
 

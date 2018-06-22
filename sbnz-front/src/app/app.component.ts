@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoggedUtils } from './utils/logged.utils';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,17 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'app';
+
+  isLoggedIn(){
+    return !LoggedUtils.isEmpty();
+  }
+
+  getRole(){
+    return LoggedUtils.getRole();
+  }
+
+  logout(){
+    console.log("izlogovo");
+    localStorage.removeItem("loggedUser");
+  }
 }

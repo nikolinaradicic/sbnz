@@ -1,0 +1,37 @@
+<br>
+<div class="row">
+  <div class="col-md-5">
+    <div class="container">
+        <h3>Medicine components</h3>
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let m of components; let i = index">
+              <td>{{m.name}}</td>
+              <td><button (click)="deleteMedicine(i)">Delete</button></td>
+            </tr>
+          </tbody>
+        </table>
+    </div>  
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-6">
+        <form>
+          <h3>New component</h3>
+          <div class="form-group">
+
+          <label for="fname">Name</label>
+          <input type="text" [(ngModel)]="newComponent.name" 
+          id="fname" name="medname" placeholder="Medicine name..">
+          </div>
+          <div class="form-group">
+          <button (click)="createComponent()">Add</button>
+          </div>
+          </form>
+  </div>
+</div>

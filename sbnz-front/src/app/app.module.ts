@@ -10,6 +10,8 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { UserService } from './services/user.service';
+import { AdminService } from './services/admin.service';
+
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { TokenInterceptorService } from './services/token-interceptor.service';
 import { AddPatientComponent } from './components/add-patient/add-patient.component';
@@ -17,6 +19,10 @@ import { SearchComponent } from './components/search/search.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { DiagnoseComponent } from './components/diagnose/diagnose.component';
 import { PatientsComponent } from './components/patients/patients.component';
+import { SymptomsComponent } from './components/symptoms/symptoms.component';
+import { MedicineComponent } from './components/medicine/medicine.component';
+import { DiseasesComponent } from './components/diseases/diseases.component';
+import { MedCompComponent } from './components/med-comp/med-comp.component';
 
 
 @NgModule({
@@ -28,7 +34,11 @@ import { PatientsComponent } from './components/patients/patients.component';
     SearchComponent,
     FilterPipe,
     DiagnoseComponent,
-    PatientsComponent
+    PatientsComponent,
+    SymptomsComponent,
+    MedicineComponent,
+    DiseasesComponent,
+    MedCompComponent
   ],
   imports: [
     BrowserModule,
@@ -39,6 +49,18 @@ import { PatientsComponent } from './components/patients/patients.component';
       [
         {
           path: 'login', component: LoginComponent 
+        },
+        {
+          path: 'components', component: MedCompComponent
+        },
+        {
+          path: 'medicine', component: MedicineComponent
+        },
+        {
+          path: 'symptoms', component: SymptomsComponent
+        },
+        {
+          path: 'diseases', component: DiseasesComponent
         },
         { 
           path: 'newPatient', component: AddPatientComponent 
@@ -58,6 +80,7 @@ import { PatientsComponent } from './components/patients/patients.component';
   ],
   providers: [
     UserService,
+    AdminService,
     HttpClient,
     {
       provide: HTTP_INTERCEPTORS,

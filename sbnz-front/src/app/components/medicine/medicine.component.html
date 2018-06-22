@@ -1,0 +1,65 @@
+<br>
+<div class="row">
+  <div class="col-md-5">
+        <div class="container">
+            <h2>Medicine</h2>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Type</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let m of medicine; let i = index">
+                  <td>{{m.name}}</td>
+                  <td>{{m.medicineType}}</td>
+                  <td><button (click)="deleteMedicine(i)">Delete</button></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>  
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-6">
+        <form class="form">
+          <h4>New Medicine</h4>
+          <div class="form-group">
+              <label for="fname">Name</label>
+              <input type="text" [(ngModel)]="newMedicine.name" id="fname" name="medname" placeholder="Medicine name..">
+          </div>
+          <div class="form-group">
+              <label for="type">Type</label>
+              <select [(ngModel)]="newMedicine.medicineType" id="type" name="type">
+                <option>ANTIBIOTIC</option>
+                <option>ANALGETIC</option>
+                <option>OTHER</option>
+              </select>
+            
+          </div>
+          <div class="form-group">
+            <label for="country">Components</label>
+            <ul>
+              <li *ngFor="let a of newMedicine.components">
+                {{a.name}}
+                <button (click)="deleteComponent(i)"> delete</button>
+              </li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <label for="search">Search components</label>
+            <input [(ngModel)]="searchText" placeholder="search text goes here" name="search">
+            <div *ngIf="searchText">
+            <ul>
+              <li *ngFor="let m of components | filter : searchText">
+                {{m.name}} <button (click)="addComponent(m)"> Add</button>
+              </li>
+            </ul>
+            </div>
+          </div>
+          <button (click)="addMedicine()">Add medicine</button>
+        </form>
+  </div>
+  
+</div>

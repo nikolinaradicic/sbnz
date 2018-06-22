@@ -3,6 +3,7 @@ import { HttpHeaders } from '@angular/common/http';
 import { HttpClient } from '@angular/common/http';
 import { Medicine } from '../model/medicine';
 import { Observable } from 'rxjs/Observable';
+import { Symptom } from '../model/symptom';
 
 @Injectable()
 export class AdminService {
@@ -44,4 +45,23 @@ export class AdminService {
     return this.http.delete<boolean>("http://localhost:8080/api/component/" + id);
   }
 
+  addSymptom(symptom: Symptom): Observable<Symptom>{
+    let params = JSON.stringify(symptom);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post<Symptom>("http://localhost:8080/api/symptom", params,
+      {
+        headers: headers
+      })
+  }
+
+  getSymptoms(): Observable<Symptom[]>{
+    return this.http.get<Symptom[]>("http://localhost:8080/api/symptom")
+  }
+
+  deleteSymptom(id: number): Observable<boolean>{
+    console.log(id);
+    return this.http.delete<boolean>("http://localhost:8080/api/symptom/" + id);
+  }
+
+  
 }

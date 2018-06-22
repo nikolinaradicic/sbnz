@@ -1,6 +1,5 @@
 package com.sbnz.sbnzproject.model;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -50,7 +49,7 @@ public class Disease {
 		this.name = name;
 	}
 
-	public Collection<Symptom> getSymptoms() {
+	public Set<Symptom> getSymptoms() {
 		return symptoms;
 	}
 

@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Medicine } from '../model/medicine';
 import { Observable } from 'rxjs/Observable';
 import { Symptom } from '../model/symptom';
+import { Disease } from '../model/disease';
 
 @Injectable()
 export class AdminService {
@@ -61,6 +62,23 @@ export class AdminService {
   deleteSymptom(id: number): Observable<boolean>{
     console.log(id);
     return this.http.delete<boolean>("http://localhost:8080/api/symptom/" + id);
+  }
+
+  addDisease(disease: Disease): Observable<Disease>{
+    let params = JSON.stringify(disease);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post<Disease>("http://localhost:8080/api/disease", params,
+      {
+        headers: headers
+      })
+  }
+
+  getDiseases(): Observable<Disease[]>{
+    return this.http.get<Disease[]>("http://localhost:8080/api/disease")
+  }
+
+  deleteDisease(id: number): Observable<boolean>{
+    return this.http.delete<boolean>("http://localhost:8080/api/disease/" + id);
   }
 
   

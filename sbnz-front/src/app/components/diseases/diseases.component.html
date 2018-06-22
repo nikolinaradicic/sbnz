@@ -1,3 +1,65 @@
-<p>
-  diseases works!
-</p>
+<br>
+<div class="row">
+  <div class="col-md-5">
+        <div class="container">
+            <h2>Diseases</h2>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Group</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let m of diseases; let i = index">
+                  <td>{{m.name}}</td>
+                  <td>{{m.diseaseType}}</td>
+                  <td><button (click)="deleteDisease(i)">Delete</button></td>
+                </tr>
+              </tbody>
+            </table>
+        </div>  
+  </div>
+  <div class="col-md-1"></div>
+  <div class="col-md-6">
+        <form class="form">
+          <h4>New disease</h4>
+          <div class="form-group">
+              <label for="fname">Name</label>
+              <input type="text" [(ngModel)]="newDisease.name" id="fname" name="medname" placeholder="Medicine name..">
+          </div>
+          <div class="form-group">
+              <label for="type">Group</label>
+              <select [(ngModel)]="newDisease.diseaseType" id="type" name="type">
+                <option>FIRST</option>
+                <option>SECOND</option>
+                <option>THIRD</option>
+              </select>
+            
+          </div>
+          <div class="form-group">
+            <label for="country">Symptoms</label>
+            <ul>
+              <li *ngFor="let a of newDisease.symptoms">
+                {{a.name}}
+                <button (click)="deleteSymptom(i)"> delete</button>
+              </li>
+            </ul>
+          </div>
+          <div class="form-group">
+            <label for="search">Search symptoms</label>
+            <input [(ngModel)]="searchText" placeholder="search text goes here" name="search">
+            <div *ngIf="searchText">
+            <ul>
+              <li *ngFor="let m of symptoms | filter : searchText">
+                {{m.name}} <button *ngIf="isThere(m)" (click)="addSymptom(m)"> Add</button>
+              </li>
+            </ul>
+            </div>
+          </div>
+          <button (click)="addDisease()">Add disease</button>
+        </form>
+  </div>
+  
+</div>

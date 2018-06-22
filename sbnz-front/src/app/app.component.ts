@@ -18,7 +18,6 @@ export class AppComponent {
   }
 
   logout(){
-    console.log("izlogovo");
     localStorage.removeItem("loggedUser");
   }
 }

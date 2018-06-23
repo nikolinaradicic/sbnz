@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Symptom } from '../../model/symptom';
+import { AdminService } from '../../services/admin.service';
 
 @Component({
   selector: 'app-diagnose',
@@ -8,13 +10,33 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class DiagnoseComponent implements OnInit {
   patientId: number;
+  foundSymptoms: Symptom[] = [];
+  symptoms: Symptom[] = [];
+  searchText = "";
 
   constructor(
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private adminService: AdminService
   ) { }
 
   ngOnInit() {
     this.patientId = +this.route.snapshot.paramMap.get('id');
+    this.adminService.getSymptoms().subscribe(data => this.symptoms = data);
+  }
+
+  addSymptom(symptom: Symptom){
+    this.foundSymptoms.push(symptom);
+    for (let i = 0; i < this.symptoms.length; i++){
+      if (this.symptoms[i].id == symptom.id){
+        this.foundSymptoms.splice(i,1);
+        break;
+      }
+    }
+  }
+
+  deleteSymptom(index: number){
+    this.symptoms.push(this.foundSymptoms[index]);
+    this.foundSymptoms.splice(index, 1);
   }
 
 }

@@ -23,6 +23,7 @@ import { SymptomsComponent } from './components/symptoms/symptoms.component';
 import { MedicineComponent } from './components/medicine/medicine.component';
 import { DiseasesComponent } from './components/diseases/diseases.component';
 import { MedCompComponent } from './components/med-comp/med-comp.component';
+import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { MedCompComponent } from './components/med-comp/med-comp.component';
     SymptomsComponent,
     MedicineComponent,
     DiseasesComponent,
-    MedCompComponent
+    MedCompComponent,
+    AddDoctorComponent
   ],
   imports: [
     BrowserModule,

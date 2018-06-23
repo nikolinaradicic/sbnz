@@ -24,10 +24,10 @@ public class MedicalRecord {
 	private Disease disease;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Set<Symptom> symptoms = new HashSet<>();
+	private Collection<Symptom> symptoms = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
-	private Collection<Medicine> medicine = new ArrayList<>();
+	private Set<Medicine> medicine = new HashSet<>();
 
 	public MedicalRecord() {
 		
@@ -48,13 +48,13 @@ public class MedicalRecord {
 	public Collection<Symptom> getSymptoms() {
 		return symptoms;
 	}
-	public void setSymptoms(Set<Symptom> symptoms) {
+	public void setSymptoms(Collection<Symptom> symptoms) {
 		this.symptoms = symptoms;
 	}
 	public Collection<Medicine> getMedicine() {
 		return medicine;
 	}
-	public void setMedicine(Collection<Medicine> medicine) {
+	public void setMedicine(Set<Medicine> medicine) {
 		this.medicine = medicine;
 	}
 

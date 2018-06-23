@@ -6,49 +6,17 @@ package com.sample
 import com.sbnz.sbnzproject.model.*;
 import java.util.*;
 
-//bar 4 simptoma - prioritet po broju zadovoljenih simptoma
-rule "Prehlada"
+rule "Broj simptoma za svaku bolest"
 	no-loop
 	lock-on-active true
-	salience $sal
 	when
-		$d : Disease( name == "prehlada" )
-		$mr : MedicalRecord (disease == null , $symptoms: symptoms)
-		$sal : Number(intValue >=4 ) from accumulate(
-			$symptom : Symptom (
-				name == "curenje iz nosa" ||
-				name == "bol u grlu" ||
-				name == "glavobolja" ||
-				name == "kijanje" ||
-				name == "kasalj"
-			) from $symptoms,
-            count($symptom)
+		$d : PossibleDisease( $dsymptoms: disease.getSymptoms() )
+		accumulate(
+			$s : PossibleSymptom (
+				symptom memberOf $dsymptoms
+			);
+            $count:count($s)
 		)
 	then
-		modify($mr) {setDisease($d);} 
-		System.out.println("Prehlada sa " + $sal + " simptoma.");
-end
-
-rule "Sinusna infekcija"
-	no-loop
-	lock-on-active true
-	salience $sal
-	when
-		$d : Disease( name == "sinusna infekcija" )
-		$mr : MedicalRecord (disease == null , $symptoms: symptoms)
-		$sdc : Number(intValue >=4 ) from accumulate(
-			$symptom : Symptom (
-				name == "oticanje oko ociju" ||
-				name == "glavobolja" ||
-				name == "zuti sekret iz nosa" ||
-				name == "bol u grlu" ||
-				name == "temperatura veca od 38" ||
-				name == "kasalj"
-			) from $symptoms,
-            count($symptom)
-			
-		)
-	then
-		modify($mr) {setDisease($d);} 
-		System.out.println("Sinusna infekcija sa" + sal + " simptoma.");
+		modify($d) {setNumSymptoms($count);}
 end

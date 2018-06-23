@@ -4,6 +4,8 @@ import 'rxjs/add/operator/map';
 import { HttpParams } from '@angular/common/http/src/params';
 import { Patient } from '../model/patient';
 import { Observable } from 'rxjs/Observable';
+import { MedicalRecord } from '../model/medicalRecord';
+import { Symptom } from '../model/symptom';
 
 @Injectable()
 export class UserService {
@@ -32,6 +34,17 @@ export class UserService {
 
   getPatients(): Observable<Patient[]>{
     return this.http.get<Patient[]>("http://localhost:8080/api/patient");
+  }
+
+  diagnose(id: number, obj: Symptom[]): Observable<MedicalRecord>{
+
+    let params = JSON.stringify(obj);
+    let headers = new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
+    return this.http.post<MedicalRecord>("http://localhost:8080/api/patient/diagnose/" + id, params,
+      {
+        headers: headers
+      }).map(res => res);
+
   }
 
 }

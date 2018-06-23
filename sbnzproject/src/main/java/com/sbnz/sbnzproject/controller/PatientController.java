@@ -11,12 +11,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sbnz.sbnzproject.model.MedicalRecord;
 import com.sbnz.sbnzproject.model.Patient;
+import com.sbnz.sbnzproject.model.Symptom;
 import com.sbnz.sbnzproject.service.PatientService;
 
 @RestController
@@ -47,5 +50,13 @@ public class PatientController {
 		return new ResponseEntity<>(saved,HttpStatus.CREATED);
 	}
 
+	@PostMapping(value="/diagnose/{patientId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAuthority('DOCTOR')")
+	public ResponseEntity<MedicalRecord> getDiagnose(@PathVariable Long patientId, @RequestBody Collection<Symptom> symptoms) {
+		logger.info("> create patient");
+		MedicalRecord saved = patientService.diagnose(patientId, symptoms);
+		return new ResponseEntity<>(saved,HttpStatus.CREATED);
+	}
+	
 
 }

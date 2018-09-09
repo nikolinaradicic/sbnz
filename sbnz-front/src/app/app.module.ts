@@ -24,6 +24,7 @@ import { MedicineComponent } from './components/medicine/medicine.component';
 import { DiseasesComponent } from './components/diseases/diseases.component';
 import { MedCompComponent } from './components/med-comp/med-comp.component';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
+import { TherapyComponent } from './components/therapy/therapy.component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { AddDoctorComponent } from './components/add-doctor/add-doctor.component
     MedicineComponent,
     DiseasesComponent,
     MedCompComponent,
-    AddDoctorComponent
+    AddDoctorComponent,
+    TherapyComponent
   ],
   imports: [
     BrowserModule,

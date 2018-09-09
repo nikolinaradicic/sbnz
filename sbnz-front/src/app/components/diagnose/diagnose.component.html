@@ -4,7 +4,7 @@
       <div class="form-group">
         <label for="country">Symptoms for patient</label>
         <ul>
-          <li *ngFor="let a of foundSymptoms">
+          <li *ngFor="let a of foundSymptoms; let i = index;">
             {{a.name}}
             <button (click)="deleteSymptom(i)"> delete</button>
           </li>
@@ -19,6 +19,7 @@
           </li>
         </ul>
       </div>
-      <button (click)="diagnose()">Diagnose</button>
+      <button class="btn btn-link" (click)="diagnose()">Najvjerovatnija bolest</button>
+      <button class="btn btn-link" (click)="diagnose()">Moguce bolesti</button>
     </form>
 </div>

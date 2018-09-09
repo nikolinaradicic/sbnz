@@ -2,6 +2,7 @@ package com.sbnz.sbnzproject.model;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -12,6 +13,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Patient {
@@ -28,7 +31,8 @@ public class Patient {
 	@Column(nullable = false)
 	private String email;
 	
-	@OneToMany(fetch = FetchType.EAGER)
+	@JsonIgnore
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
 	private Set<MedicalRecord> patientHistory = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -97,6 +101,29 @@ public class Patient {
 	public void setComponentAlergies(Set<MedicineComponent> componentAlergies) {
 		this.componentAlergies = componentAlergies;
 	}
+	
+	@Override  
+	public boolean equals(Object o) { 
+	        if (o == this) { 
+	            return true; 
+	        } 
+	  
+	        if (!(o instanceof MedicalRecord)) { 
+	            return false; 
+	        } 
+	        
+	        MedicalRecord c = (MedicalRecord) o;
+	        return c.getId() == this.id;
+	        
+	         
+	 }
+	
+	@Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
 	
 	
 }

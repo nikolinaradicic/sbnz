@@ -2,7 +2,9 @@ package com.sbnz.sbnzproject.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -20,14 +22,19 @@ public class MedicalRecord {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	@ManyToOne
-	private Disease disease;
+	@ManyToMany
+	private Collection<Disease> disease = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Collection<Symptom> symptoms = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Medicine> medicine = new HashSet<>();
+	
+	@ManyToOne
+	private Patient patient;
+	
+	private Date recordedDate;
 
 	public MedicalRecord() {
 		
@@ -39,10 +46,12 @@ public class MedicalRecord {
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public Disease getDisease() {
+	
+	
+	public Collection<Disease> getDisease() {
 		return disease;
 	}
-	public void setDisease(Disease disease) {
+	public void setDisease(Collection<Disease> disease) {
 		this.disease = disease;
 	}
 	public Collection<Symptom> getSymptoms() {
@@ -58,6 +67,57 @@ public class MedicalRecord {
 		this.medicine = medicine;
 	}
 
+	public void addDisease(Disease d) {
+		if(disease == null) {
+			disease = new ArrayList<>();
+		}
+		this.disease.add(d);
+	}
+	public Date getRecordedDate() {
+		return recordedDate;
+	}
+	public void setRecordedDate(Date recordedDate) {
+		this.recordedDate = recordedDate;
+	}
 	
+	@Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 67 * hash + Objects.hashCode(this.patient.getName());
+        hash = 67 * hash + Objects.hashCode(this.recordedDate);
+        return hash;
+    }
 	
+	 @Override
+	    public boolean equals(Object o) { 
+	        if (o == this) { 
+	            return true; 
+	        } 
+	  
+	        if (!(o instanceof MedicalRecord)) { 
+	            return false; 
+	        } 
+	        
+	        MedicalRecord c = (MedicalRecord) o;
+	        if (this.id != null && c.getId() != null) {
+	        	return c.getId() == this.id;
+	        }
+	        
+	        return c.getPatient().equals(this.patient);
+	         
+	 }
+	public Patient getPatient() {
+		return patient;
+	}
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+	
+	public Collection<Symptom> collectSymptoms(){
+		ArrayList<Symptom> collected = new ArrayList<>();
+		for (Disease d: disease) {
+			collected.addAll(d.getSymptoms());
+		}
+		return collected;
+	}
 }

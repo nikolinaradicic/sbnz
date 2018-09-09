@@ -5,18 +5,209 @@ package com.sample
 
 import com.sbnz.sbnzproject.model.*;
 import java.util.*;
+global Date date14daysAgo;
+global Date date21daysAgo;
+global Date date60daysAgo;
+global Date date6monthsAgo;
+
 
 rule "Broj simptoma za svaku bolest"
 	no-loop
 	lock-on-active true
+	salience 1000
 	when
 		$d : PossibleDisease( $dsymptoms: disease.getSymptoms() )
 		accumulate(
-			$s : PossibleSymptom (
-				symptom memberOf $dsymptoms
+			$s : Symptom (
+				this memberOf $dsymptoms
 			);
             $count:count($s)
 		)
 	then
 		modify($d) {setNumSymptoms($count);}
+end
+
+
+rule "Bolest grupe 1 - nigdje nisu svi simptomi zadovoljeni"
+	no-loop
+	salience 90
+	when
+		not PossibleDisease( numSymptoms == disease.getSymptoms().size(), disease.getDiseaseType() == DiseaseType.FIRST)
+		$possible : List( size > 0) from collect (PossibleDisease( numSymptoms >= 4, disease.getDiseaseType() == DiseaseType.FIRST))
+		accumulate(
+			$p : PossibleDisease (
+				$k : numSymptoms,
+				$totalNum : disease.getSymptoms().size()
+			) from $possible;
+			$max: max($k*1.0/($totalNum*1.0))
+			)
+		$selected : PossibleDisease( numSymptoms*1.0/(1.0*disease.getSymptoms().size())  == $max ) from $possible
+		$md : MedicalRecord() 
+	then
+		System.out.println("Nisu svi simptomi zadovoljeni");
+		System.out.println($selected.getDisease().getName());
+		modify($md) {addDisease($selected.getDisease());}
+end
+
+rule "Bolest grupe 1 - svi simptomi zadovoljeni"
+	no-loop
+	salience 90
+	when
+		$l : List( size > 0) from collect (PossibleDisease( numSymptoms == disease.getSymptoms().size(), disease.getDiseaseType() == DiseaseType.FIRST))
+		accumulate(
+			$p : PossibleDisease (
+				$k : numSymptoms
+			) from $l;
+			$max: max($k)
+			)
+		$best : PossibleDisease( numSymptoms == $max ) from $l
+		not PossibleDisease ( numSymptoms > $max + 1, disease.getDiseaseType() == DiseaseType.FIRST)
+		$md : MedicalRecord() 
+	then
+		System.out.println("svi zadovoljeni, ne postoji bolest gdje je zadovolje vise od jednog simptoma u odnosu na ovu");
+		System.out.println($best.getDisease().getName());
+		modify($md) {addDisease($best.getDisease());}
+end
+
+rule "Bolest grupe 1 - svi simptomi zadovoljeni, ali postoji gdje je zadovoljeno bar dva vise"
+	no-loop
+	salience 90
+	when
+		$l : List( size > 0) from collect (PossibleDisease( numSymptoms == disease.getSymptoms().size(), disease.getDiseaseType() == DiseaseType.FIRST))
+		accumulate(
+			PossibleDisease (
+				$k : numSymptoms
+			) from $l;
+			$max: max($k)
+			)
+		$l2 : List( size > 0 ) from collect (PossibleDisease ( numSymptoms > $max +1, disease.getDiseaseType() == DiseaseType.FIRST) )
+		accumulate(
+			PossibleDisease (
+				$ns : numSymptoms,
+				$ds : disease.getSymptoms().size()
+			) from $l2;
+			$max2: max($ns*1.0/($ds*1.0))
+		)
+		$best : PossibleDisease( numSymptoms*1.0/(disease.getSymptoms().size()*1.0) == $max2 ) from $l2
+		$md : MedicalRecord( ) 
+	then
+		System.out.println("svi zadovoljeni, ali postoji bolest gdje je zadovoljeno bar dva simptoma vise");
+		System.out.println($best.getDisease().getName());
+		System.out.println($max2);
+		modify($md) {addDisease($best.getDisease());}
+end
+
+rule "Bolest grupe 2"
+	no-loop
+	salience 91
+	when
+		$selected : PossibleDisease( numSymptoms == disease.getSymptoms().size(), disease.getDiseaseType() == DiseaseType.SECOND)
+		not MedicalRecord( disease contains $selected.getDisease())
+		$md : MedicalRecord( )
+	then
+		System.out.println("Bolest grupe 2");
+		System.out.println($selected.getDisease().getName());
+		modify($md) {addDisease($selected.getDisease());}
+end
+
+rule "Bolest grupe 3"
+	no-loop
+	salience 70
+	when
+		$selected : PossibleDisease( numSpecSymptoms >= 1,
+									 numSymptoms >= 2,
+									 disease.getDiseaseType() == DiseaseType.THIRD
+									)
+		$md : MedicalRecord()
+	then
+		System.out.println("Bolest grupe 3");
+		System.out.println($selected.getDisease().getName());
+		modify($md) {addDisease($selected.getDisease());}
+end
+
+rule "Pacijent bolovao od prehlade ili groznice u poslednjih 60 dana"
+	no-loop
+	salience 99
+    when
+    	 Patient ( $medRecords: patientHistory)
+    	 $d : PossibleDisease(disease.getName() == "Sinusna infekcija", $ns : numSymptoms)
+    	 $pd : List( size > 0) from collect(MedicalRecord( 
+    	 	disease contains  new Disease("Prehlada") || disease contains new Disease("Groznica"), 
+    	 	date60daysAgo != null,
+    	 	date60daysAgo.before(recordedDate) ) from $medRecords)
+    then
+    	System.out.println("Od prehlade ili groznice u zadnjih 60 dana");
+    	$d.setNumSymptoms($ns + 1);
+		modify($d) {setNumSymptoms($ns + 1);}
+end
+
+rule "U zadnjih 6 mjeseci imao povisen pritisak bar 10 puta"
+	no-loop
+	salience 99
+    when
+    	 Patient ( $medRecords: patientHistory)
+    	 Number(intValue >= 10) from accumulate(
+             $pd : MedicalRecord( 
+             	symptoms contains new Symptom('Visok pritisak'), 
+             	date6monthsAgo.before(recordedDate) ) from $medRecords;
+            	count($pd)
+        )
+    	 $selected : PossibleDisease( disease.getName() == "Hipertenzija", $ns : numSymptoms )
+    then
+		System.out.println("U zadnjih 6 mj imao povisen pritisak bar 10 puta");
+		modify($selected) {setNumSymptoms($ns + 1);}
+end
+
+rule "Pacijent boluje od hipertenzije vise od 6 mjeseci"
+	no-loop
+	lock-on-active true
+	salience 99
+    when
+    	 Patient ( $medRecords: patientHistory)
+    	 List( size > 0) from collect(MedicalRecord( 
+    	 	disease contains  new Disease("Hipertenzija"), 
+    	 	date6monthsAgo != null,
+    	 	date6monthsAgo.after(recordedDate) ) from $medRecords)
+    	 $pd : PossibleDisease(
+    	 		disease.getName() == "Hronicna bubrezna bolest", 
+    	 		$ss : numSpecSymptoms)
+    	
+    then
+		System.out.println("Boluje od hipertenzije duze od 6 mjeseci");
+		modify($pd) {setNumSpecSymptoms($ss + 1);}
+end
+
+
+rule "Pacijent boluje od dijabetesa"
+	no-loop
+	lock-on-active true
+	salience 99
+    when
+    	Patient ( $medRecords: patientHistory)
+    	 List( size > 0) from collect(MedicalRecord( 
+    	 	disease contains  new Disease("Dijabetes")) from $medRecords)
+    	 $pd : PossibleDisease(
+    	 	disease.getName() == "Hronicna bubrezna bolest",
+    	 	$ss : numSpecSymptoms)
+    then
+		System.out.println("Boluje od dijabetesa");
+		modify($pd) {setNumSpecSymptoms($ss + 1);}
+end
+
+rule "U poslednjih 14 dana dijagnostikovana bolest koja kao simptom ima povisenu temperaturu"
+	no-loop
+	lock-on-active true
+	salience 99
+    when
+    	Patient ( $medRecords: patientHistory)
+    	List( size > 0) from collect(MedicalRecord (collectSymptoms() contains new Symptom("Temperatura od 40C do 41C") || collectSymptoms() contains new Symptom("Temperatura veca od 38C"),
+    					date14daysAgo != null,
+    					date14daysAgo.before(recordedDate) 
+    					) from $medRecords)
+        $pd : PossibleDisease(
+    	 	disease.getName() == "Akutna bubrezna povreda",
+    	 	$ss : numSpecSymptoms)
+    then
+		System.out.println("U poslednjih 14 dana dijagnostikovana bolest koja kao simptom ima povisenu temperaturu");
+		modify($pd) {setNumSpecSymptoms($ss + 1);}
 end

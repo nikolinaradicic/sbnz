@@ -24,6 +24,9 @@ public class Symptom {
 		
 	}
 
+	public Symptom(String name) {
+		this.name = name;
+	}
 	public Long getId() {
 		return id;
 	}
@@ -47,6 +50,19 @@ public class Symptom {
 	public void setSymptomType(SymptomType symptomType) {
 		this.symptomType = symptomType;
 	}
-
+	
+	 @Override
+	    public boolean equals(Object o) { 
+	        if (o == this) { 
+	            return true; 
+	        } 
+	  
+	        if (!(o instanceof Symptom)) { 
+	            return false; 
+	        } 
+	        
+	        Symptom c = (Symptom) o;
+	        return c.getName().equals(this.name); 
+	    }
 	
 }

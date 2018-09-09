@@ -25,7 +25,7 @@ insert into symptom(id, name, symptom_type ) value (11, "Umor", "GENERAL")
 insert into symptom(id, name, symptom_type ) value (12, "Zuti sekret iz nosa", "GENERAL")
 insert into symptom(id, name, symptom_type ) value (13, "Oticanje oko ociju", "GENERAL")
 insert into symptom(id, name, symptom_type ) value (14, "Cesto uriniranje", "GENERAL")
-insert into symptom(id, name, symptom_type ) value (15, "Gubitak telesne tezine", "GENERAL")
+insert into symptom(id, name, symptom_type ) value (15, "Gubitak tjelesne tezine", "GENERAL")
 insert into symptom(id, name, symptom_type ) value (16, "Zamor", "GENERAL")
 insert into symptom(id, name, symptom_type ) value (17, "Mucnina i povracanje", "GENERAL")
 insert into symptom(id, name, symptom_type ) value (18, "Nocturia", "GENERAL")
@@ -33,6 +33,15 @@ insert into symptom(id, name, symptom_type ) value (19, "Otoci nogu i zglobova",
 insert into symptom(id, name, symptom_type ) value (20, "Gusenje", "GENERAL")
 insert into symptom(id, name, symptom_type ) value (21, "Bol u grudima", "GENERAL")
 insert into symptom(id, name, symptom_type) value (22, "Dijareja", "GENERAL")
+insert into symptom(id, name, symptom_type) value (23, "Visok pritisak", "GENERAL")
+insert into symptom(id, name, symptom_type) value (24, "U zadnjih 6 mjeseci imao povisen pritisak bar 10 puta", "SPECIFIC")
+insert into symptom(id, name, symptom_type) value (25, "Bolovao od prehlade ili groznice u posljednjih 60 dana", "SPECIFIC")
+insert into symptom(id, name, symptom_type) value (26, "Boluje od hipertenzije vise od 6 mjeseci", "SPECIFIC")
+insert into symptom(id, name, symptom_type) value (27, "Boluje od dijabetesa", "SPECIFIC")
+insert into symptom(id, name, symptom_type) value (28, "Oporavlja se od operacije", "SPECIFIC")
+insert into symptom(id, name, symptom_type) value (29, "U posljednjih 14 dana bolest koja kao simptom ima povisenu temperaturu", "SPECIFIC")
+insert into symptom(id, name, symptom_type) value (30, "U posljednjih 21 dan bolest lijecena antibioticima", "SPECIFIC")
+
 --Prehlada--
 insert into disease_symptoms(disease_id, symptoms_id) value (1, 1)
 insert into disease_symptoms(disease_id, symptoms_id) value (1, 2)
@@ -63,6 +72,10 @@ insert into disease_symptoms(disease_id, symptoms_id) value (4, 12)
 insert into disease_symptoms(disease_id, symptoms_id) value (4, 2)
 insert into disease_symptoms(disease_id, symptoms_id) value (4, 6)
 insert into disease_symptoms(disease_id, symptoms_id) value (4, 5)
+insert into disease_symptoms(disease_id, symptoms_id) value (4, 25)
+---Hipertenzija--
+insert into disease_symptoms(disease_id, symptoms_id) value (5, 24)
+
 --Dijabetes--
 insert into disease_symptoms(disease_id, symptoms_id) value (6, 14)
 insert into disease_symptoms(disease_id, symptoms_id) value (6, 15)
@@ -74,8 +87,65 @@ insert into disease_symptoms(disease_id, symptoms_id) value (7, 18)
 insert into disease_symptoms(disease_id, symptoms_id) value (7, 19)
 insert into disease_symptoms(disease_id, symptoms_id) value (7, 20)
 insert into disease_symptoms(disease_id, symptoms_id) value (7, 21)
+insert into disease_symptoms(disease_id, symptoms_id) value (7, 26)
+insert into disease_symptoms(disease_id, symptoms_id) value (7, 27)
 --Akutna bubrezna povreda--
 insert into disease_symptoms(disease_id, symptoms_id) value (8, 16)
 insert into disease_symptoms(disease_id, symptoms_id) value (8, 20)
 insert into disease_symptoms(disease_id, symptoms_id) value (8, 19)
 insert into disease_symptoms(disease_id, symptoms_id) value (8, 22)
+insert into disease_symptoms(disease_id, symptoms_id) value (8, 29)
+insert into disease_symptoms(disease_id, symptoms_id) value (8, 28)
+insert into disease_symptoms(disease_id, symptoms_id) value (8, 30)
+
+insert into medical_record(id, recorded_date, patient_id) value (1, '2018-07-14 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (1, 2)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (1,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (2, '2018-06-14 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (2, 1)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (2,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (3, '2018-05-14 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (3, 1)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (3,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (4, '2018-04-14 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (4, 2)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (4,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (5, '2018-03-14 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (5, 2)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (5,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (6, '2018-08-14 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (6, 2)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (6,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (7, '2018-09-02 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (7, 1)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (7,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (8, '2018-05-04 14:43:58',1)
+insert into medical_record_disease(medical_record_id, disease_id) value (8, 2)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (8,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (9, '2018-06-11 14:43:58',1)
+insert into medical_record_disease(medical_record_id, disease_id) value (9, 2)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (9,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (10, '2018-08-02 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (10, 1)
+insert into medical_record_symptoms(medical_record_id, symptoms_id) value (10,23)
+
+insert into medical_record(id, recorded_date, patient_id) value (11, '2018-01-01 14:43:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (11, 5)
+
+insert into medical_record(id, recorded_date, patient_id) value (12, '2018-02-01 14:43:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (12, 6)
+
+insert into medical_record(id, recorded_date, patient_id) value (13, '2018-09-01 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (13, 2)
+
+insert into medical_record(id, recorded_date, patient_id) value (14, '2018-09-05 14:43:58', 1)
+insert into medical_record_disease(medical_record_id, disease_id) value (14, 3)

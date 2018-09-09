@@ -32,6 +32,10 @@ public class Disease {
 	public Disease() {
 		
 	}
+	
+	public Disease(String name) {
+		this.name = name;
+	}
 
 	public Long getId() {
 		return id;
@@ -65,6 +69,19 @@ public class Disease {
 		this.diseaseType = diseaseType;
 	}
 	
+	@Override
+    public boolean equals(Object o) { 
+        if (o == this) { 
+            return true; 
+        } 
+  
+        if (!(o instanceof Disease)) { 
+            return false; 
+        } 
+        
+        Disease c = (Disease) o;
+        return c.getName().equals(this.name); 
+    }
 
 	
 }

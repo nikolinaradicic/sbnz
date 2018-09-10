@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sbnz.sbnzproject.model.Medicine;
+import com.sbnz.sbnzproject.repository.DiseaseRepository;
 import com.sbnz.sbnzproject.repository.MedicineRepository;
+import com.sbnz.sbnzproject.repository.PatientRepository;
+import com.sbnz.sbnzproject.repository.SymptomRepository;
 import com.sbnz.sbnzproject.service.MedicineService;
 
 @Service
@@ -14,7 +17,7 @@ public class MedicineServiceImpl implements MedicineService{
 	
 	@Autowired
 	MedicineRepository medicineRepository;
-
+	
 	@Override
 	public Medicine create(Medicine medicine) {
 		// TODO Auto-generated method stub

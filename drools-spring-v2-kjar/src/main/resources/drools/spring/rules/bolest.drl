@@ -211,3 +211,22 @@ rule "U poslednjih 14 dana dijagnostikovana bolest koja kao simptom ima povisenu
 		System.out.println("U poslednjih 14 dana dijagnostikovana bolest koja kao simptom ima povisenu temperaturu");
 		modify($pd) {setNumSpecSymptoms($ss + 1);}
 end
+
+rule "U poslednjih 21 dan dijagnostikovana bolest za koju je primao antibiotike"
+	no-loop
+	lock-on-active true
+	salience 99
+    when
+    	Patient ( $medRecords: patientHistory)
+    	List( size > 0) from collect(MedicalRecord (hasMedType(MedicineType.ANTIBIOTIK),
+    					date21daysAgo != null,
+    					date21daysAgo.before(recordedDate) 
+    					) from $medRecords)
+        $pd : PossibleDisease(
+    	 	disease.getName() == "Akutna bubrezna povreda",
+    	 	$ss : numSpecSymptoms)
+    	
+    then
+    	System.out.println("U poslednjih 21 dana dijagnostikovana bolest za koju je primao antibiotike");
+		modify($pd) {setNumSpecSymptoms($ss + 1);}
+end

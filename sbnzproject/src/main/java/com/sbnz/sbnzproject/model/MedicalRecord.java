@@ -13,16 +13,16 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
+
 
 @Entity
 public class MedicalRecord {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@ManyToMany
+	@ManyToMany()
 	private Collection<Disease> disease = new ArrayList<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -30,9 +30,6 @@ public class MedicalRecord {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Medicine> medicine = new HashSet<>();
-	
-	@ManyToOne
-	private Patient patient;
 	
 	private Date recordedDate;
 
@@ -80,10 +77,10 @@ public class MedicalRecord {
 		this.recordedDate = recordedDate;
 	}
 	
+	
 	@Override
     public int hashCode() {
         int hash = 7;
-        hash = 67 * hash + Objects.hashCode(this.patient.getName());
         hash = 67 * hash + Objects.hashCode(this.recordedDate);
         return hash;
     }
@@ -103,15 +100,9 @@ public class MedicalRecord {
 	        	return c.getId() == this.id;
 	        }
 	        
-	        return c.getPatient().equals(this.patient);
-	         
+	        return false;
 	 }
-	public Patient getPatient() {
-		return patient;
-	}
-	public void setPatient(Patient patient) {
-		this.patient = patient;
-	}
+	
 	
 	public Collection<Symptom> collectSymptoms(){
 		ArrayList<Symptom> collected = new ArrayList<>();
@@ -119,5 +110,13 @@ public class MedicalRecord {
 			collected.addAll(d.getSymptoms());
 		}
 		return collected;
+	}
+	
+	public boolean hasMedType(MedicineType type) {
+		for (Medicine m : this.medicine) {
+			if(m.getMedicineType() == type)
+				return true;
+		}
+		return false;
 	}
 }

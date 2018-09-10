@@ -1,3 +1,55 @@
-<p>
-  therapy works!
-</p>
+<div class="row">
+  <div class="col-md-3"></div>
+  <div class="col-md-6">
+    <div class="row">
+        <h3>Ustanovljena bolest</h3>
+        <ul>
+          <li *ngFor="let d of mr.disease">
+            {{d.name}}
+          </li>
+        </ul>
+    </div>
+    <hr>
+    <div class="row">
+        <form class="form">
+            <div class="form-group">
+              <label for="country">Odabrani lijekovi: </label>
+              <ul>
+                <li *ngFor="let a of selected; let i = index;">
+                  {{a.name}}
+                  <button class="btn btn-ok" (click)="deleteMedication(i)">Obrisi</button>
+                </li>
+              </ul>
+            </div>
+            <div class="form-group">
+              <label for="search">Trazi lijekove</label>
+              <input [(ngModel)]="searchText" placeholder="naziv lijeka ..." name="search">
+             <table>
+               <tr>
+                 <th>Naziv</th>
+                 <th>TIP</th>
+                 <th></th>
+               </tr>
+                <tr *ngFor="let m of medicine | filter : searchText | orderBy : order">
+                  <td>
+                    {{m.name}}
+                  </td>
+                  <td>{{m.medicineType}}</td>
+                  <td>
+                    <button class="btn btn-ok" (click)="addMedication(m)">Dodaj</button>
+                  </td>
+                </tr>
+              </table>
+              <p *ngIf="alergies.length > 0" style="color:red">
+                Pacijent alergican na <b *ngFor="let a of alergies">{{a.name}} </b> .
+                Promijenite terapiju.
+              </p>
+            </div>
+            <button class="btn btn-link" (click)="finish()">Zavrsi dijagnostiku</button>
+            <button class="btn btn-link" (click)="goBack()">Nazad</button>
+          </form>
+
+    </div>
+  </div>
+  <div class="col-md-3"></div>
+</div>

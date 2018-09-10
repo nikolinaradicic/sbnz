@@ -57,6 +57,5 @@ public class PatientController {
 		MedicalRecord saved = patientService.diagnose(patientId, symptoms);
 		return new ResponseEntity<>(saved,HttpStatus.CREATED);
 	}
-	
 
 }

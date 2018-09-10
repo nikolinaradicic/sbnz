@@ -3,6 +3,8 @@ package com.sbnz.sbnzproject.service;
 import java.util.Collection;
 
 import com.sbnz.sbnzproject.model.Disease;
+import com.sbnz.sbnzproject.model.PossibleDisease;
+import com.sbnz.sbnzproject.model.Symptom;
 
 public interface DiseaseService {
 
@@ -13,5 +15,7 @@ public interface DiseaseService {
 	Collection<Disease> getAll();
 
 	Disease update(Disease disease);
+
+	Collection<PossibleDisease> findPossible(Collection<Symptom> symptoms);
 
 }

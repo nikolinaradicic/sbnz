@@ -61,7 +61,7 @@ public class PatientServiceImpl implements PatientService{
 			possible.add(pd);
 		}
 		MedicalRecord md = new MedicalRecord();
-		md.setPatient(patient);
+		md.setSymptoms(symptoms);
 		md.setRecordedDate(new Date());
 		kieSession.insert(md);
 		kieSession.insert(patient);

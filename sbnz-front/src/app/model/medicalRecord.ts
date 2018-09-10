@@ -4,7 +4,7 @@ import { Medicine } from "./medicine";
 
 export interface MedicalRecord{
     id?: number;
-    disease?: Disease;
+    disease?: Disease[];
     symptoms?: Symptom[];
     medicine?: Medicine[]
 }

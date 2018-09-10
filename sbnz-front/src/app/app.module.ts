@@ -5,7 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
-
+import { OrderModule } from 'ngx-order-pipe';
 
 import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
@@ -25,6 +25,10 @@ import { DiseasesComponent } from './components/diseases/diseases.component';
 import { MedCompComponent } from './components/med-comp/med-comp.component';
 import { AddDoctorComponent } from './components/add-doctor/add-doctor.component';
 import { TherapyComponent } from './components/therapy/therapy.component';
+import { DiagnoseService } from './services/diagnose.service';
+import { PossibleDiseasesComponent } from './components/possible-diseases/possible-diseases.component';
+import { PatientHistoryComponent } from './components/patient-history/patient-history.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 
 @NgModule({
@@ -42,13 +46,17 @@ import { TherapyComponent } from './components/therapy/therapy.component';
     DiseasesComponent,
     MedCompComponent,
     AddDoctorComponent,
-    TherapyComponent
+    TherapyComponent,
+    PossibleDiseasesComponent,
+    PatientHistoryComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
+    OrderModule,
     RouterModule.forRoot(
       [
         {
@@ -86,10 +94,11 @@ import { TherapyComponent } from './components/therapy/therapy.component';
     UserService,
     AdminService,
     HttpClient,
+    DiagnoseService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,
-      multi: true
+      multi: true,
     }
   ],
   bootstrap: [AppComponent]

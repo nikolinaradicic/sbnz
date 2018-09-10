@@ -9,6 +9,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import com.sbnz.sbnzproject.model.Disease;
+import com.sbnz.sbnzproject.model.PossibleDisease;
+import com.sbnz.sbnzproject.model.Symptom;
 import com.sbnz.sbnzproject.service.DiseaseService;
 
 import java.util.Collection;
@@ -56,5 +58,13 @@ public class DiseaseController {
         Disease updated = diseaseService.update(disease);
         return new ResponseEntity<>(updated, HttpStatus.OK);
     }
+    
+    @PostMapping(value="/forSymptoms", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAuthority('DOCTOR')")
+	public ResponseEntity<Collection<PossibleDisease>> getPossible(@RequestBody Collection<Symptom> symptoms) {
+		logger.info("> create patient");
+		Collection<PossibleDisease> saved = diseaseService.findPossible(symptoms);
+		return new ResponseEntity<>(saved,HttpStatus.CREATED);
+	}
 
 }

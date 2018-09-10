@@ -14,13 +14,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Patient {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@Column(nullable = false)
@@ -31,8 +30,7 @@ public class Patient {
 	@Column(nullable = false)
 	private String email;
 	
-	@JsonIgnore
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "patient")
+	@OneToMany(fetch = FetchType.EAGER)
 	private Set<MedicalRecord> patientHistory = new HashSet<>();
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -112,7 +110,7 @@ public class Patient {
 	            return false; 
 	        } 
 	        
-	        MedicalRecord c = (MedicalRecord) o;
+	        Patient c = (Patient) o;
 	        return c.getId() == this.id;
 	        
 	         
@@ -124,6 +122,11 @@ public class Patient {
         hash = 67 * hash + Objects.hashCode(this.email);
         return hash;
     }
+
+	public void addRecord(MedicalRecord md) {
+		// TODO Auto-generated method stub
+		this.patientHistory.add(md);
+	}
 	
 	
 }

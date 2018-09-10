@@ -1,0 +1,14 @@
+package com.sample
+
+import com.sbnz.sbnzproject.model.*;
+import java.util.*;
+
+query "Bolesti koje sadrze simptome" (List $symptoms)
+	$d: Disease( $ds : symptoms )
+	$nSymptoms: Number(intValue >= 1) 
+				from accumulate( 
+					$s : Symptom( this memberOf $symptoms)
+					from $ds;
+					count($s)
+				)
+end

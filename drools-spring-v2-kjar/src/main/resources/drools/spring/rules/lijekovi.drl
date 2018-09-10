@@ -1,0 +1,29 @@
+package com.sample
+
+import com.sbnz.sbnzproject.model.*;
+import java.util.*;
+
+rule "Pacijent alergican na lijek"
+	no-loop
+	lock-on-active true
+	agenda-group "lijekovi"
+ 	when
+ 		$p : Patient( $mAlergies : medicineAlergies)
+ 		$m : MedicineAlergy( medicine memberOf $mAlergies )
+ 	then
+ 		System.out.println("Pacijent alergican na lijek");
+ 		modify($m) {setAlergic(true);}
+end
+
+rule "Pacijent alergican na sastojak"
+	no-loop
+	lock-on-active true
+	agenda-group "lijekovi"
+ 	when
+ 		$p : Patient( $cAlergies : componentAlergies)
+ 		$c : MedicineComponent( this memberOf $cAlergies)
+ 		$m : MedicineAlergy( medicine.getComponents() contains $c )
+ 	then
+ 		System.out.println("Pacijent alergican na sastojak lijeka");
+ 		modify($m) {setAlergic(true);}
+end

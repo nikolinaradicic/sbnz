@@ -1,0 +1,14 @@
+<div>
+  <table>
+    <tr>
+      <th>Naziv</th>
+      <th>Broj simptoma</th>
+      <th></th>
+    </tr>
+    <tr *ngFor="let pd of possible">
+      <td>{{pd.disease.name}}</td>
+      <td>{{pd.numSymptoms}}</td>
+      <td><button class="btn btn-ok" (click)="choose(pd)">Odaberi</button></td>
+    </tr>
+  </table>
+</div>

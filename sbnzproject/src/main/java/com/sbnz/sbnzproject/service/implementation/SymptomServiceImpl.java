@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sbnz.sbnzproject.model.Symptom;
+import com.sbnz.sbnzproject.model.SymptomType;
 import com.sbnz.sbnzproject.repository.SymptomRepository;
 import com.sbnz.sbnzproject.service.SymptomService;
 
@@ -29,7 +30,7 @@ public class SymptomServiceImpl implements SymptomService{
 	@Override
 	public Collection<Symptom> getAll() {
 		// TODO Auto-generated method stub
-		return symptomRepository.findAll();
+		return symptomRepository.findBySymptomType(SymptomType.GENERAL);
 	}
 
 	@Override

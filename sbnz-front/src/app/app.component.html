@@ -5,31 +5,31 @@
         <!-- Links -->
         <ul class="navbar-nav" *ngIf="getRole()=='ADMIN'">
           <li class="nav-item">
-            <a class="nav-link" (click)="logout()">Logout</a>
+            <a class="nav-link" (click)="logout()">Odjavi me</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="symptoms">Symptoms</a>
+            <a class="nav-link" routerLink="symptoms">Simptomi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="diseases">Diseases</a>
+            <a class="nav-link" routerLink="diseases">Bolesti</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="diseases">Medicine</a>
+            <a class="nav-link" routerLink="diseases">Lijekovi</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" routerLink="diseases">Medicine components</a>
+            <a class="nav-link" routerLink="diseases">Sastojci lijekova</a>
           </li>
         </ul>
 
         <ul class="navbar-nav" *ngIf="getRole()=='DOCTOR'">
           <li class="nav-item">
-            <a class="nav-link" (click)="logout()">Logout</a>
+            <a class="nav-link" (click)="logout()">Odjavi me</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link 2</a>
+            <a class="nav-link" routerLink="patients">Pacijenti</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link 3</a>
+            <a class="nav-link" routerLink="reports">Izvjestaji</a>
           </li>
         </ul>
       

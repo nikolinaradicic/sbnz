@@ -1,5 +1,3 @@
-package com.sample
-
 import com.sbnz.sbnzproject.model.*;
 import java.util.*;
 global Date startDate;

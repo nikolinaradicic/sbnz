@@ -31,7 +31,6 @@ public class PatientController {
 	
 	@Autowired
 	PatientService patientService;
-
 	
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAuthority('DOCTOR')")
@@ -47,7 +46,7 @@ public class PatientController {
 		logger.info("> get patients");
 		Collection<Patient> saved = patientService.getAll();
 		logger.info("< get patients");
-		return new ResponseEntity<>(saved,HttpStatus.CREATED);
+		return new ResponseEntity<>(saved,HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

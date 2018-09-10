@@ -23,4 +23,6 @@ public class SbnzprojectApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(SbnzprojectApplication.class, args);
 	}
+	
+	
 }

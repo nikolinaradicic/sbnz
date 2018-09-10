@@ -42,6 +42,16 @@ public class Patient {
 	public Patient() {
 		
 	}
+	
+	
+	public Patient(Long id, String name, String lastName) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.lastName = lastName;
+	}
+
+
 
 	public Long getId() {
 		return id;
@@ -106,7 +116,7 @@ public class Patient {
 	            return true; 
 	        } 
 	  
-	        if (!(o instanceof MedicalRecord)) { 
+	        if (!(o instanceof Patient)) { 
 	            return false; 
 	        } 
 	        

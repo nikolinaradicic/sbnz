@@ -1,0 +1,65 @@
+import com.sbnz.sbnzproject.model.*;
+import com.sbnz.sbnzproject.event.*;
+import java.util.*;
+
+rule "Problem sa kiseonikom"
+	agenda-group "monitoring"
+    when
+        $o1: OxygenEvent($p: patient, $ol : oxygenLevel, $ol < 70)
+        not(
+            OxygenEvent (
+            	this != $o1, 
+            	patient == $p, 
+            	oxygenLevel > $ol)
+            	over window:time(15m)
+        )
+    then
+    	System.out.println("Problem sa kiseonikom");
+        insert(new OxygenCriticalEvent($p, "problem sa kiseonikom"));
+        drools.halt();
+end
+
+rule "Vise od 25 otkucaja srca u 10 sekundi"
+	agenda-group "monitor"
+    when
+        $h1: HeartbeatEvent($patient: patient)
+        Number(intValue >= 25) from accumulate(
+            $h2: HeartbeatEvent(
+                this != $h1, 
+                patient == $patient, 
+                this meets[10s] $h1
+            ),
+            count($h2)
+        )
+    then
+        insert(new HeartRhythmEvent($patient, "Vise od 25 otkucaja srca"));
+        drools.halt();
+end
+
+rule "Hitno potrebna dijaliza"
+	agenda-group "monitoring"
+	
+    when
+    	$p : Patient($mr : patientHistory)
+    	MedicalRecord( disease contains new Disease("Hronicna bubrezna bolest") ) from $mr
+        $h1: HeartbeatEvent($p == patient)
+        Number(intValue >= 10) from accumulate(
+            $h2: HeartbeatEvent(
+                this != $h1, 
+                patient == $p, 
+                this meets[10s] $h1
+            ),
+            count($h2)
+        )
+        
+        Number(intValue < 100) from accumulate(
+            $ue: UrinDropEvent(
+            	$q : quantity, 
+                patient == $p) 
+                over window:time(12h),
+            	sum($q)
+        ) 
+    then
+        insert(new DialysisEvent($p, "Hitno potrebna dijaliza"));
+        drools.halt();
+end

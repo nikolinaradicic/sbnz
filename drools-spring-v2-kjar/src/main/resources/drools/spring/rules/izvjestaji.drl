@@ -1,0 +1,51 @@
+package com.sample
+
+import com.sbnz.sbnzproject.model.*;
+import java.util.*;
+global Date startDate;
+
+
+query "Pacijenti sa mogucim hronicnim oboljenjima"
+	$patient : Patient( $history: patientHistory)
+	$disease : Disease(name != "Prehlada", name != "Groznica")
+    Number(intValue >= 5) from accumulate(
+             $mr : MedicalRecord(
+             	disease contains $disease, 
+             	startDate.before(recordedDate) 
+             	) from $history,
+             count($mr)
+        )
+
+end
+
+query "Spisak mogucih zavisnika"  
+    $patient : Patient( $history : patientHistory )  
+    $records : List(size() >= 6) from collect ( MedicalRecord( 
+        		hasMedType(MedicineType.ANALGETIK),
+        		startDate.before(recordedDate)) from $history)
+    $doctors: Set(size() >= 3) 
+    from accumulate (
+    	MedicalRecord( $d : doctor )
+    	from $records,
+    	collectSet($d)
+    	)
+end
+
+query "Spisak pacijenta sa oslabljenim imunitetom"  
+    $patient : Patient( $history: patientHistory)
+    not MedicalRecord( 
+    	hasMedType(MedicineType.ANTIBIOTIK),  
+    	startDate.before(recordedDate) ) from $history
+    
+    $l : List(size() > 10) from collect(MedicalRecord(
+        	hasMedType(MedicineType.ANTIBIOTIK),  
+    		startDate.before(recordedDate) ) from $history) 
+        
+    $patientDisease :  Set(size() >= 2) 
+    from accumulate (
+    	 MedicalRecord(
+    	 	$d : disease) from $l,
+    	 collectSet($d.iterator().next())
+    	)
+     	  
+end

@@ -1,3 +1,30 @@
-<p>
-  reports works!
-</p>
+<div class="row">
+  <button class="btn btn-link" (click)="getChronic()">Pacijenti sa mogucim hronicnim oboljenjima</button>
+  <button class="btn btn-link"(click)="getAddicts()" >Moguci zavisici</button>
+  <button class="btn btn-link" (click)="getLowImunity()">Pacijenti sa oslabljenim imunitetom</button>
+</div>
+<br>
+<div class="row">
+  <div class="col-md-2"></div>
+  <div class="col-md-8">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Ime</th>
+            <th>Prezime</th>
+            <th>Email</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let patient of patients">
+            <td>{{patient.name}}</td>
+            <td>{{patient.lastName}}</td>
+            <td>{{patient.email}}</td>
+            <td><button class="btn btn-link" (click)="goToHistory(patient)">Karton</button></td>
+          </tr>
+        </tbody>
+      </table>
+  </div>
+  <div class="col-md-2"></div>
+</div>

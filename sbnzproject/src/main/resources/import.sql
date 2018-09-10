@@ -1,9 +1,16 @@
 insert into user(id, username, password, name, last_name, role) value (1, "admin", "$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi", "admin", "admin", "ADMIN")
 insert into user(id, username, password, name, last_name, role) value (2, "doctor", "$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi", "doctor", "doctor", "DOCTOR")
+insert into user(id, username, password, name, last_name, role) value (3, "doctor2", "$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi", "doctor2", "doctor2", "DOCTOR")
+insert into user(id, username, password, name, last_name, role) value (4, "doctor3", "$2a$08$lDnHPz7eUkSi6ao14Twuau08mzhWrL4kyZGGU5xfiGALO/Vxd5DOi", "doctor3", "doctor3", "DOCTOR")
+
 insert into patient(id, name, last_name, email) value (1, "niki", "radi", "rnikolina")
 insert into patient(id, name, last_name, email) value (2, "saki", "rad", "sandrolina")
 insert into patient(id, name, last_name, email) value (3, "uki", "ukic", "jocko")
 insert into patient(id, name, last_name, email) value (4, "cetvrti", "cetvrti", "cetvrti")
+insert into patient(id, name, last_name, email) value (5, "hronicni1", "hronicni1", "hronicni1")
+insert into patient(id, name, last_name, email) value (6, "hronicni2", "hronicni2", "hronicni2")
+insert into patient(id, name, last_name, email) value (7, "zavisnik", "zavisnik", "zavisnik")
+
 insert into disease(id, name, disease_type) value (1, "Prehlada", "FIRST")
 insert into disease(id, name, disease_type) value (2, "Groznica", "FIRST")
 insert into disease(id, name, disease_type) value (3, "Upala krajnika", "FIRST")
@@ -197,3 +204,76 @@ insert into medical_record(id, recorded_date, doctor_id) value (16, '2018-09-05 
 insert into medical_record_disease(medical_record_id, disease_id) value (16, 3)
 insert into patient_patient_history(patient_id, patient_history_id) value (4,16)
 insert into medical_record_medicine(medical_record_id, medicine_id) value (16,1)
+
+--hronicni 1--
+insert into medical_record(id, recorded_date, doctor_id) value (17, '2018-08-05 14:43:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (17, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (5,17)
+
+insert into medical_record(id, recorded_date, doctor_id) value (18, '2018-03-05 14:43:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (18, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (5,18)
+
+insert into medical_record(id, recorded_date, doctor_id) value (19, '2018-01-05 14:43:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (19, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (5,19)
+
+insert into medical_record(id, recorded_date, doctor_id) value (20, '2017-08-05 14:43:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (20, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (5,20)
+
+insert into medical_record(id, recorded_date, doctor_id) value (21, '2018-03-05 14:43:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (21, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (5,21)
+
+--hronicni 2--
+insert into medical_record(id, recorded_date, doctor_id) value (22, '2018-08-05 14:00:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (22, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (6,22)
+
+insert into medical_record(id, recorded_date, doctor_id) value (23, '2018-03-05 14:00:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (23, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (6,23)
+
+insert into medical_record(id, recorded_date, doctor_id) value (24, '2018-01-05 14:00:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (24, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (6,24)
+
+insert into medical_record(id, recorded_date, doctor_id) value (25, '2017-08-05 14:40:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (25, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (6,25)
+
+insert into medical_record(id, recorded_date, doctor_id) value (26, '2018-03-05 14:40:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (26, 4)
+insert into patient_patient_history(patient_id, patient_history_id) value (6,26)
+
+--zavisnik--
+insert into medical_record(id, recorded_date, doctor_id) value (27, '2018-05-05 14:40:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (27, 4)
+insert into medical_record_medicine(medical_record_id,medicine_id) value (27, 6)
+insert into patient_patient_history(patient_id, patient_history_id) value (7,27)
+
+insert into medical_record(id, recorded_date, doctor_id) value (28, '2018-06-05 14:40:51', 3)
+insert into medical_record_disease(medical_record_id, disease_id) value (28, 4)
+insert into medical_record_medicine(medical_record_id,medicine_id) value (28, 6)
+insert into patient_patient_history(patient_id, patient_history_id) value (7,28)
+
+insert into medical_record(id, recorded_date, doctor_id) value (29, '2018-07-05 14:10:58', 4)
+insert into medical_record_disease(medical_record_id, disease_id) value (29, 4)
+insert into medical_record_medicine(medical_record_id,medicine_id) value (29, 6)
+insert into patient_patient_history(patient_id, patient_history_id) value (7,29)
+
+insert into medical_record(id, recorded_date, doctor_id) value (30, '2018-08-01 14:40:58', 2)
+insert into medical_record_disease(medical_record_id, disease_id) value (30, 4)
+insert into medical_record_medicine(medical_record_id,medicine_id) value (30, 6)
+insert into patient_patient_history(patient_id, patient_history_id) value (7,30)
+
+insert into medical_record(id, recorded_date, doctor_id) value (31, '2018-08-15 14:40:51', 3)
+insert into medical_record_disease(medical_record_id, disease_id) value (31, 2)
+insert into medical_record_medicine(medical_record_id,medicine_id) value (31, 6)
+insert into patient_patient_history(patient_id, patient_history_id) value (7,31)
+
+insert into medical_record(id, recorded_date, doctor_id) value (32, '2018-09-01 14:11:58', 4)
+insert into medical_record_disease(medical_record_id, disease_id) value (32, 3)
+insert into medical_record_medicine(medical_record_id,medicine_id) value (32, 6)
+insert into patient_patient_history(patient_id, patient_history_id) value (7,32)

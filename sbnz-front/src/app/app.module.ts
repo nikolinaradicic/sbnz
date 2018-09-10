@@ -29,6 +29,7 @@ import { DiagnoseService } from './services/diagnose.service';
 import { PossibleDiseasesComponent } from './components/possible-diseases/possible-diseases.component';
 import { PatientHistoryComponent } from './components/patient-history/patient-history.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { ReportService } from './services/report.service';
 
 
 @NgModule({
@@ -83,6 +84,10 @@ import { ReportsComponent } from './components/reports/reports.component';
         {
           path:'history/:id', component: PatientHistoryComponent
         },
+
+        {
+          path:'reports', component: ReportsComponent
+        },
         {
           path:'not-found', component: PageNotFoundComponent
         },
@@ -98,6 +103,7 @@ import { ReportsComponent } from './components/reports/reports.component';
     AdminService,
     HttpClient,
     DiagnoseService,
+    ReportService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptorService,

@@ -7,12 +7,15 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 
 
 @Entity
@@ -30,6 +33,10 @@ public class MedicalRecord {
 	
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Medicine> medicine = new HashSet<>();
+	
+	@ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "doctor_id", nullable = false)
+	private User doctor;
 	
 	private Date recordedDate;
 
@@ -119,4 +126,12 @@ public class MedicalRecord {
 		}
 		return false;
 	}
+	public User getDoctor() {
+		return doctor;
+	}
+	public void setDoctor(User doctor) {
+		this.doctor = doctor;
+	}
+	
+	
 }

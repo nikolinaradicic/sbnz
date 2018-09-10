@@ -31,7 +31,7 @@ export class DiagnoseService {
     return this.http.post<Medicine[]>("http://localhost:8080/api/medicalRecord/" + id, params,
       {
         headers: headers
-      }).map(res => res);
+      });
 
   }
 
@@ -41,7 +41,13 @@ export class DiagnoseService {
     return this.http.post<PossibleDisease[]>("http://localhost:8080/api/disease/forSymptoms", params,
       {
         headers: headers
-      }).map(res => res);
+      });
+
+  }
+
+  getSortedSymptoms(id: number): Observable<Symptom[]>{
+    
+    return this.http.get<Symptom[]>("http://localhost:8080/api/disease/"+ id + "/sorted");
 
   }
 }

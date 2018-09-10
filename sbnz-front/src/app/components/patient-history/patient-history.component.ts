@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Patient } from '../../model/patient';
+import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-patient-history',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PatientHistoryComponent implements OnInit {
 
-  constructor() { }
+  patientId: number;
+  patient: Patient = null;
+  order = "recordedDate";
+  reverse = true;
+
+  constructor(private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit() {
+    this.patientId = +this.route.snapshot.paramMap.get('id');
+    this.userService.getPatient(this.patientId).subscribe(
+      data => {this.patient = data;}
+    )
+    
   }
 
 }

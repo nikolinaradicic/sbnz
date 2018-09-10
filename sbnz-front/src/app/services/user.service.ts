@@ -36,4 +36,7 @@ export class UserService {
     return this.http.get<Patient[]>("http://localhost:8080/api/patient");
   }
 
+  getPatient(id: number): Observable<Patient>{
+    return this.http.get<Patient>("http://localhost:8080/api/patient/" + id);
+  }
 }

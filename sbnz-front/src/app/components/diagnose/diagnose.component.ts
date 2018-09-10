@@ -86,7 +86,12 @@ export class DiagnoseComponent implements OnInit {
   }
 
   showSymptoms(d: Disease){
-    this.showSymptomsD = d;
+    this.diagnoseService.getSortedSymptoms(d.id).subscribe(
+      data => {
+        d.symptoms = data;
+        this.showSymptomsD = d;
+      }
+    )
   }
 
   hideSymptoms(){

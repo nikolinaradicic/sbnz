@@ -14,4 +14,6 @@ public interface PatientService {
 
 	public MedicalRecord diagnose(Long patientId, Collection<Symptom> symptoms);
 
+	public Patient getOne(Long id);
+
 }

@@ -81,6 +81,9 @@ import { ReportsComponent } from './components/reports/reports.component';
           path: 'patients', component: PatientsComponent
         },
         {
+          path:'history/:id', component: PatientHistoryComponent
+        },
+        {
           path:'not-found', component: PageNotFoundComponent
         },
         { path: 'diagnose/:id', component: DiagnoseComponent },

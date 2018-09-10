@@ -50,6 +50,16 @@ public class PatientController {
 		return new ResponseEntity<>(saved,HttpStatus.CREATED);
 	}
 
+	@GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@PreAuthorize("hasAuthority('DOCTOR')")
+	public ResponseEntity<Patient> getPatient(@PathVariable Long id) {
+		logger.info("> get patients");
+		Patient saved = patientService.getOne(id);
+		logger.info("< get patients");
+		return new ResponseEntity<>(saved,HttpStatus.CREATED);
+	}
+
+	
 	@PostMapping(value="/diagnose/{patientId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@PreAuthorize("hasAuthority('DOCTOR')")
 	public ResponseEntity<MedicalRecord> getDiagnose(@PathVariable Long patientId, @RequestBody Collection<Symptom> symptoms) {

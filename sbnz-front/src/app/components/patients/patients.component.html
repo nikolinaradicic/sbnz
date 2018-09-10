@@ -15,9 +15,10 @@
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Firstname</th>
-          <th>Lastname</th>
+          <th>Ime</th>
+          <th>Prezime</th>
           <th>Email</th>
+          <th></th>
           <th></th>
         </tr>
       </thead>
@@ -26,7 +27,8 @@
           <td>{{patient.name}}</td>
           <td>{{patient.lastName}}</td>
           <td>{{patient.email}}</td>
-          <td><button (click)="goToDiagnose(patient)">Diagnose</button></td>
+          <td><button class="btn btn-link" (click)="goToDiagnose(patient)">Postavi dijagnozu</button></td>
+          <td><button class="btn btn-link" (click)="goToHistory(patient)">Karton</button></td>
         </tr>
       </tbody>
     </table>

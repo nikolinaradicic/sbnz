@@ -67,4 +67,12 @@ public class DiseaseController {
 		return new ResponseEntity<>(saved,HttpStatus.CREATED);
 	}
 
+    @GetMapping(value = "/{id}/sorted", produces = MediaType.APPLICATION_JSON_VALUE)
+    @PreAuthorize("hasAuthority('DOCTOR')")
+    public ResponseEntity<?> getSortedSymptoms(@PathVariable Long id) {
+        logger.info("> delete disease");
+        Collection<Symptom> sorted =  diseaseService.getSortedSymptoms(id);
+        logger.info("> delete disease");
+        return new ResponseEntity<>(sorted, HttpStatus.OK);
+    }
 }

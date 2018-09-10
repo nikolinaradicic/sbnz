@@ -1,3 +1,52 @@
-<p>
-  patient-history works!
-</p>
+<div class="row">
+  <div class="col-md-4"></div>
+
+  <div class="col-md-4">
+      <h3>Pacijent {{patient.name}} {{patient.lastName}}</h3>
+  </div>
+
+  <div class="col-md-4"></div>
+</div>
+<div class="row">
+
+<div class="col-md-1"></div>
+<div class="col-md-10"> 
+    <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>Datum</th>
+            <th>Doktor</th>
+            <th>Simptomi</th>
+            <th>Ustanovljena bolest</th>
+            <th>Lijekovi</th>
+            
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let record of patient.patientHistory | orderBy : order : reverse : reverse">
+            <td>{{record.recordedDate | date : 'medium' }}</td>
+            <td>{{record.doctor.name}} {{record.doctor.lastName}}</td>
+            <td> 
+              <b *ngFor="let symptom of record.symptoms; let i= index">
+                {{symptom.name}} 
+                <b *ngIf="i!= (record.symptoms.length - 1)">, </b>
+              </b>
+            </td>
+            <td> 
+                <b *ngFor="let d of record.disease; let i= index">
+                  {{d.name}} 
+                  <b *ngIf="i!= (record.disease.length - 1)">, </b>
+                </b>
+            </td>
+            <td> 
+                <b *ngFor="let m of record.medicine; let i= index">
+                  {{m.name}} 
+                  <b *ngIf="i!=(record.medicine.length -1)">, </b>
+                </b>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+</div>
+<div class="col-md-1"></div>
+</div>

@@ -18,4 +18,6 @@ public interface DiseaseService {
 
 	Collection<PossibleDisease> findPossible(Collection<Symptom> symptoms);
 
+	Collection<Symptom> getSortedSymptoms(Long id);
+
 }

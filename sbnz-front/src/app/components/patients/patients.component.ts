@@ -27,4 +27,8 @@ export class PatientsComponent implements OnInit {
     this.router.navigate(['/diagnose/', p.id]);
   }
 
+  goToHistory(p: Patient){
+    this.router.navigate(['/history/', p.id])
+  }
+
 }

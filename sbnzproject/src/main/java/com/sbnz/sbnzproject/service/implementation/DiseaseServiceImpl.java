@@ -85,4 +85,17 @@ public class DiseaseServiceImpl implements DiseaseService{
 		return retVal;
 	}
 
+	@Override
+	public Collection<Symptom> getSortedSymptoms(Long id) {
+		// TODO Auto-generated method stub
+		Disease d = diseaseRepository.getOne(id);
+		ArrayList<Symptom> symptoms = new ArrayList<>(d.getSymptoms());
+		Collections.sort(symptoms, new Comparator<Symptom>() {
+			public int compare(Symptom s1, Symptom s2) {
+				return s1.getSymptomType().compareTo(s2.getSymptomType());
+			}
+		});
+		return symptoms;
+	}
+
 }

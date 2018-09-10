@@ -107,4 +107,10 @@ public class PatientServiceImpl implements PatientService{
 		return md;
 	}
 
+	@Override
+	public Patient getOne(Long id) {
+		// TODO Auto-generated method stub
+		return patientRepository.getOne(id);
+	}
+
 }

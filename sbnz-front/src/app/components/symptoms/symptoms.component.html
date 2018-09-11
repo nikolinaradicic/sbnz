@@ -2,11 +2,11 @@
 <div class="row">
   <div class="col-md-5">
     <div class="container">
-        <h3>Symptoms</h3>
+        <h3>Simptomi</h3>
         <table class="table table-hover">
           <thead>
             <tr>
-              <th>Name</th>
+              <th>Naziv</th>
               <th></th>
             </tr>
           </thead>
@@ -22,15 +22,15 @@
   <div class="col-md-1"></div>
   <div class="col-md-6">
         <form>
-          <h3>New Symptom</h3>
+          <h3>Novi simptom</h3>
           <div class="form-group">
 
-          <label for="fname">Name</label>
+          <label for="fname">Naziv</label>
           <input type="text" [(ngModel)]="newSymptom.name" 
-          id="fname" name="medname" placeholder="Medicine name..">
+          id="fname" name="medname" placeholder="naziv..">
           </div>
           <div class="form-group">
-          <button (click)="createSymptom()">Add</button>
+          <button (click)="createSymptom()">Dodaj</button>
           </div>
           </form>
   </div>

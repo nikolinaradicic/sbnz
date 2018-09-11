@@ -20,7 +20,7 @@ rule "Problem sa kiseonikom"
 end
 
 rule "Vise od 25 otkucaja srca u 10 sekundi"
-	agenda-group "monitor"
+	agenda-group "monitoring"
     when
         $h1: HeartbeatEvent($patient: patient)
         Number(intValue >= 25) from accumulate(

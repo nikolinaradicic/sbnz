@@ -6,6 +6,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import org.kie.api.KieBase;
+import org.kie.api.KieBaseConfiguration;
+import org.kie.api.KieServices;
+import org.kie.api.conf.EventProcessingOption;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +57,14 @@ public class PatientServiceImpl implements PatientService{
 		// TODO Auto-generated method stub
 		Patient patient = patientRepository.getOne(patientId);
 		Collection<Disease> diseases = diseaseRepository.findAll();
-		KieSession kieSession = kieContainer.newKieSession("ksession-rules");
+		
+		KieServices ks = KieServices.Factory.get();
+		KieBaseConfiguration kbconf = ks.newKieBaseConfiguration();
+		kbconf.setOption(EventProcessingOption.STREAM);
+		KieBase kbase = kieContainer.newKieBase(kbconf);
+
+		KieSession kieSession = kbase.newKieSession();
+		
 		Collection<PossibleDisease> possible = new ArrayList<>();
 		for (Disease d: diseases) {
 			PossibleDisease pd = new PossibleDisease(0L, 0L, d);

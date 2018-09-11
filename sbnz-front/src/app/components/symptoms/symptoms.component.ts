@@ -26,6 +26,9 @@ export class SymptomsComponent implements OnInit {
         if(data){
           this.symptoms.splice(index, 1);
         }
+        else{
+          alert("Nije moguce brisanje simptoma koji se sadrzi u nekoj od bolesti");
+        }
       }
     )
   }

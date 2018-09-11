@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
+import org.kie.api.KieBase;
+import org.kie.api.KieBaseConfiguration;
+import org.kie.api.KieServices;
+import org.kie.api.conf.EventProcessingOption;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.kie.api.runtime.rule.QueryResults;
@@ -60,8 +64,12 @@ public class DiseaseServiceImpl implements DiseaseService{
 	@Override
 	public Collection<PossibleDisease> findPossible(Collection<Symptom> symptoms) {
 		// TODO Auto-generated method stub
+		KieServices ks = KieServices.Factory.get();
+		KieBaseConfiguration kbconf = ks.newKieBaseConfiguration();
+		kbconf.setOption(EventProcessingOption.STREAM);
+		KieBase kbase = kieContainer.newKieBase(kbconf);
 
-		KieSession kieSession = kieContainer.newKieSession("ksession-rules");
+		KieSession kieSession = kbase.newKieSession();
 		Collection<Disease> all = diseaseRepository.findAll();
 		for (Disease d : all) {
 			kieSession.insert(d);

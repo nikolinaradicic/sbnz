@@ -30,6 +30,7 @@ import { PossibleDiseasesComponent } from './components/possible-diseases/possib
 import { PatientHistoryComponent } from './components/patient-history/patient-history.component';
 import { ReportsComponent } from './components/reports/reports.component';
 import { ReportService } from './services/report.service';
+import { MainPageComponent } from './components/main-page/main-page.component';
 
 
 @NgModule({
@@ -50,7 +51,8 @@ import { ReportService } from './services/report.service';
     TherapyComponent,
     PossibleDiseasesComponent,
     PatientHistoryComponent,
-    ReportsComponent
+    ReportsComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
@@ -60,6 +62,7 @@ import { ReportService } from './services/report.service';
     OrderModule,
     RouterModule.forRoot(
       [
+        { path: '', component: MainPageComponent },
         {
           path: 'login', component: LoginComponent 
         },

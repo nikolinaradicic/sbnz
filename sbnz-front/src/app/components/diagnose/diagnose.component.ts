@@ -55,10 +55,13 @@ export class DiagnoseComponent implements OnInit {
   diagnose(){
     this.diagnoseService.diagnose(this.patientId, this.foundSymptoms).subscribe(
         data => {
-          if(data){
+          if(data.disease.length > 0){
               this.mRecord = data;
               this.therapy = true;
               this.possibleDiseases = null;
+          }
+          else{
+            alert("Rezoner ne moze da zakljuci. Nedovoljan broj simptoma");
           }
         });
   }
@@ -83,6 +86,7 @@ export class DiagnoseComponent implements OnInit {
         disease : [pd.disease]
       }
       this.therapy = true;
+      this.possibleDiseases = null;
   }
 
   showSymptoms(d: Disease){

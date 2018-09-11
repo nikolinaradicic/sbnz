@@ -29,7 +29,7 @@ query "Spisak mogucih zavisnika"
     	)
 end
 
-query "Spisak pacijenta sa oslabljenim imunitetom"  
+query "Spisak pacijenata sa oslabljenim imunitetom"  
     $patient : Patient( $history: patientHistory)
     not MedicalRecord( 
     	hasMedType(MedicineType.ANTIBIOTIK),  

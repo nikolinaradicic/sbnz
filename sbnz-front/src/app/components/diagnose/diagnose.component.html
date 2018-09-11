@@ -1,4 +1,4 @@
-<h3>Diagnosing patient</h3>
+<h3>Postavljanje dijagnoze</h3>
 <div *ngIf="!therapy && !possibleDiseases" class="row">
     <div class="col-md-6">
         <form class="form">
@@ -12,11 +12,11 @@
             </ul>
           </div>
           <div class="form-group">
-            <label for="search">Search symptoms</label>
+            <label for="search">Trazi simptome</label>
             <input [(ngModel)]="searchText" placeholder="search text goes here" name="search">
            <ul>
               <li *ngFor="let m of symptoms | filter : searchText | orderBy : order">
-                {{m.name}} <button (click)="addSymptom(m)"> Add</button>
+                {{m.name}} <button (click)="addSymptom(m)">Dodaj</button>
               </li>
             </ul>
           </div>

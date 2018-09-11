@@ -1,5 +1,6 @@
 package com.sbnz.sbnzproject.model;
 
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,7 +15,12 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
 @Entity
-public class Disease{
+public class Disease implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 6395586669438786252L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

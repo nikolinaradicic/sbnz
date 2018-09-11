@@ -1,5 +1,7 @@
 package com.sbnz.sbnzproject.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -9,8 +11,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Symptom {
+public class Symptom implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 2550951266835548503L;
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;

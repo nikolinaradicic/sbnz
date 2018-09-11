@@ -8,6 +8,10 @@ import java.util.HashSet;
 
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+import org.kie.api.KieBase;
+import org.kie.api.conf.EventProcessingOption;
+import org.kie.api.KieBaseConfiguration;
+import org.kie.api.KieServices;
 import org.kie.api.runtime.rule.QueryResults;
 import org.kie.api.runtime.rule.QueryResultsRow;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,8 +38,14 @@ public class ReportServiceImpl implements ReportService{
 
 	@Override
 	public Collection<Patient> findChronic() {
-		// TODO Auto-generated method stub
-		KieSession kieSession = kieContainer.newKieSession("ksession-rules");
+		// TODO Auto-generated method stub		
+		KieServices ks = KieServices.Factory.get();
+		KieBaseConfiguration kbconf = ks.newKieBaseConfiguration();
+		kbconf.setOption(EventProcessingOption.STREAM);
+		KieBase kbase = kieContainer.newKieBase(kbconf);
+
+		KieSession kieSession = kbase.newKieSession();
+		
 		
 		Date today = new Date();
 		Calendar cal = new GregorianCalendar();
@@ -72,7 +82,12 @@ public class ReportServiceImpl implements ReportService{
 	@Override
 	public Collection<Patient> findAddicts() {
 		// TODO Auto-generated method stub
-		KieSession kieSession = kieContainer.newKieSession("ksession-rules");
+		KieServices ks = KieServices.Factory.get();
+		KieBaseConfiguration kbconf = ks.newKieBaseConfiguration();
+		kbconf.setOption(EventProcessingOption.STREAM);
+		KieBase kbase = kieContainer.newKieBase(kbconf);
+
+		KieSession kieSession = kbase.newKieSession();
 		
 		Date today = new Date();
 		Calendar cal = new GregorianCalendar();
@@ -100,7 +115,12 @@ public class ReportServiceImpl implements ReportService{
 	@Override
 	public Collection<Patient> findLowImunity() {
 		// TODO Auto-generated method stub
-		KieSession kieSession = kieContainer.newKieSession("ksession-rules");
+		KieServices ks = KieServices.Factory.get();
+		KieBaseConfiguration kbconf = ks.newKieBaseConfiguration();
+		kbconf.setOption(EventProcessingOption.STREAM);
+		KieBase kbase = kieContainer.newKieBase(kbconf);
+
+		KieSession kieSession = kbase.newKieSession();
 		
 		Date today = new Date();
 		Calendar cal = new GregorianCalendar();

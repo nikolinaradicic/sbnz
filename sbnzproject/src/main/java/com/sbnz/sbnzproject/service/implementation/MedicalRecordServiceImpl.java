@@ -5,6 +5,10 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 
+import org.kie.api.KieBase;
+import org.kie.api.KieBaseConfiguration;
+import org.kie.api.KieServices;
+import org.kie.api.conf.EventProcessingOption;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +53,12 @@ public class MedicalRecordServiceImpl implements MedicalRecordService{
 	@Override
 	public Collection<Medicine> checkAlergies(Long pId, MedicalRecord md) {
 		// TODO Auto-generated method stub
-		KieSession kieSession = kieContainer.newKieSession("ksession-rules");
+		KieServices ks = KieServices.Factory.get();
+		KieBaseConfiguration kbconf = ks.newKieBaseConfiguration();
+		kbconf.setOption(EventProcessingOption.STREAM);
+		KieBase kbase = kieContainer.newKieBase(kbconf);
+
+		KieSession kieSession = kbase.newKieSession();
 		Patient patient = patientRepository.getOne(pId);
 		kieSession.insert(patient);
 		Collection<MedicineAlergy> alergies = new ArrayList<>();

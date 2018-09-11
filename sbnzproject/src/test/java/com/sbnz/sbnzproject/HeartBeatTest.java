@@ -42,15 +42,13 @@ public class HeartBeatTest {
 		Thread t = new Thread() {
 			@Override
 			public void run() {
-				Patient p = new Patient(1L, "p", "p");
+				Patient p = new Patient(2L, "p", "p");
 				for (int index = 0; index < 30; index++) {
 					HeartbeatEvent event = new HeartbeatEvent(p);
 					ksession.insert(event);
-					System.out.println("a");
 					try {
-						Thread.sleep(100);
+						Thread.sleep(10);
 					} catch (InterruptedException e) {
-						// do nothing
 					}
 				}
 			}

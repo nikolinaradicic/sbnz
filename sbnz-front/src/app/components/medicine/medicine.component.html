@@ -2,12 +2,12 @@
 <div class="row">
   <div class="col-md-5">
         <div class="container">
-            <h2>Medicine</h2>
+            <h2>Lijekovi</h2>
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Type</th>
+                  <th>Naziv</th>
+                  <th>Tip</th>
                   <th></th>
                 </tr>
               </thead>
@@ -15,7 +15,7 @@
                 <tr *ngFor="let m of medicine; let i = index">
                   <td>{{m.name}}</td>
                   <td>{{m.medicineType}}</td>
-                  <td><button (click)="deleteMedicine(i)">Delete</button></td>
+                  <td><button (click)="deleteMedicine(i)">Obrisi</button></td>
                 </tr>
               </tbody>
             </table>
@@ -24,41 +24,41 @@
   <div class="col-md-1"></div>
   <div class="col-md-6">
         <form class="form">
-          <h4>New Medicine</h4>
+          <h4>Novi lijek</h4>
           <div class="form-group">
-              <label for="fname">Name</label>
+              <label for="fname">Naziv</label>
               <input type="text" [(ngModel)]="newMedicine.name" id="fname" name="medname" placeholder="Medicine name..">
           </div>
           <div class="form-group">
-              <label for="type">Type</label>
+              <label for="type">Tip</label>
               <select [(ngModel)]="newMedicine.medicineType" id="type" name="type">
-                <option>ANTIBIOTIC</option>
-                <option>ANALGETIC</option>
-                <option>OTHER</option>
+                <option>ANTIBIOTIK</option>
+                <option>ANALGETIK</option>
+                <option>OSTALO</option>
               </select>
             
           </div>
           <div class="form-group">
-            <label for="country">Components</label>
+            <label for="country">Kompnente</label>
             <ul>
               <li *ngFor="let a of newMedicine.components">
                 {{a.name}}
-                <button (click)="deleteComponent(i)"> delete</button>
+                <button (click)="deleteComponent(i)"> Obrisi</button>
               </li>
             </ul>
           </div>
           <div class="form-group">
-            <label for="search">Search components</label>
-            <input [(ngModel)]="searchText" placeholder="search text goes here" name="search">
+            <label for="search">Trazi komponentu</label>
+            <input [(ngModel)]="searchText" placeholder="..." name="search">
             <div *ngIf="searchText">
             <ul>
               <li *ngFor="let m of components | filter : searchText">
-                {{m.name}} <button (click)="addComponent(m)"> Add</button>
+                {{m.name}} <button (click)="addComponent(m)"> Dodaj</button>
               </li>
             </ul>
             </div>
           </div>
-          <button (click)="addMedicine()">Add medicine</button>
+          <button (click)="addMedicine()">Dodaj lijek</button>
         </form>
   </div>
   

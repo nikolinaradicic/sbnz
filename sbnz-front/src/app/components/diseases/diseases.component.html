@@ -2,12 +2,12 @@
 <div class="row">
   <div class="col-md-5">
         <div class="container">
-            <h2>Diseases</h2>
+            <h2>BOLESTI</h2>
             <table class="table table-hover">
               <thead>
                 <tr>
-                  <th>Name</th>
-                  <th>Group</th>
+                  <th>Naziv</th>
+                  <th>Grupa</th>
                   <th></th>
                 </tr>
               </thead>
@@ -15,7 +15,7 @@
                 <tr *ngFor="let m of diseases; let i = index">
                   <td>{{m.name}}</td>
                   <td>{{m.diseaseType}}</td>
-                  <td><button (click)="deleteDisease(i)">Delete</button></td>
+                  <td><button (click)="deleteDisease(i)">Obrisi</button></td>
                 </tr>
               </tbody>
             </table>
@@ -24,14 +24,14 @@
   <div class="col-md-1"></div>
   <div class="col-md-6">
         <form class="form">
-          <h4>New disease</h4>
+          <h4>Nova bolest</h4>
           <div class="form-group">
-              <label for="fname">Name</label>
+              <label for="fname">Naziv</label>
               <input type="text" [(ngModel)]="newDisease.name" id="fname" name="medname" 
               placeholder="Disease name..">
           </div>
           <div class="form-group">
-              <label for="type">Group</label>
+              <label for="type">Grupa</label>
               <select [(ngModel)]="newDisease.diseaseType" id="type" name="type">
                 <option>FIRST</option>
                 <option>SECOND</option>
@@ -40,26 +40,26 @@
             
           </div>
           <div class="form-group">
-            <label for="country">Symptoms</label>
+            <label for="country">Simptomi</label>
             <ul>
               <li *ngFor="let a of newDisease.symptoms">
                 {{a.name}}
-                <button (click)="deleteSymptom(i)"> delete</button>
+                <button (click)="deleteSymptom(i)"> Obrisi</button>
               </li>
             </ul>
           </div>
           <div class="form-group">
-            <label for="search">Search symptoms</label>
-            <input [(ngModel)]="searchText" placeholder="search text goes here" name="search">
+            <label for="search">trazi simptome</label>
+            <input [(ngModel)]="searchText" placeholder="..." name="search">
             <div *ngIf="searchText">
             <ul>
               <li *ngFor="let m of symptoms | filter : searchText">
-                {{m.name}} <button *ngIf="isThere(m)" (click)="addSymptom(m)"> Add</button>
+                {{m.name}} <button *ngIf="isThere(m)" (click)="addSymptom(m)"> Dodaj</button>
               </li>
             </ul>
             </div>
           </div>
-          <button (click)="addDisease()">Add disease</button>
+          <button (click)="addDisease()">Dodaj bolest</button>
         </form>
   </div>
   
